@@ -6,6 +6,8 @@ const DEFAULT_CONFIG = {
 
 config();
 
+console.log(process.env);
+
 export default function () {
   const nextEnv: any = {
     ...DEFAULT_CONFIG,

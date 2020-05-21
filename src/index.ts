@@ -341,6 +341,10 @@ server.post('/api/messages', (req, res) => {
         await context.sendActivity(`Got \`webchat/join\` event, your language is \`${ (context.activity.value || {}).language }\``);
       } else if (context.activity.name === 'webchat/ping') {
         await context.sendActivity({ type: 'event', name: 'webchat/pong', value: context.activity.value });
+      } else if (context.activity.name === 'useractivity/invalidlogin') {
+        // received invalidlogin from backchannel mechanism
+        // https://docs.microsoft.com/en-us/azure/bot-service/bot-service-design-pattern-embed-web-site?view=azure-bot-service-4.0
+        console.log(`useractivity/invalidlogin`)
       }
     } else if (context.activity.type === 'messageReaction') {
       const { activity: { reactionsAdded = [], reactionsRemoved = [] }} = context;
