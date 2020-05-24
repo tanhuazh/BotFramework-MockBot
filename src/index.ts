@@ -360,9 +360,11 @@ server.post('/api/messages', (req, res) => {
         attachments
       });
     } else if (context.activity.type === 'message') {
+      // 2. check faq request, and send response
       const { activity: { attachments = [], text } } = context;
       const cleanedText = (text || '').trim().replace(/\.$/, '');
-      const command = commands.find(({ pattern }) => pattern.test(cleanedText));
+      // const command = commands.find(({ pattern }) => pattern.test(cleanedText));
+      const command = faqs.find(({ pattern }) => pattern.test(cleanedText));
 
       if (command) {
         const { mode, pattern, processor } = command;
@@ -386,6 +388,7 @@ server.post('/api/messages', (req, res) => {
         }
       } else if (/^help$/i.test(cleanedText)) {
         console.log(`help command received`);
+        // 1. help command received, send faq cards
         // const helps = commands;
         const helps = faqs;
         const attachments = helps.map(({ help, name }) => {

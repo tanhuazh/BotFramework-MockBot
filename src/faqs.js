@@ -1,7 +1,7 @@
 import * as Text from "./commands/Text";
 
 export default [
-    { pattern: "text", ...Text },
+    { pattern: /^faq(\s+([\d\w]+))?$/i, ...Text },
 ].map(command => ({
     ...command,
     pattern:
