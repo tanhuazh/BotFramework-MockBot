@@ -15,6 +15,7 @@ import serveHandler from 'serve-handler';
 
 import * as OAuthCard from './commands/OAuthCard2';
 import commands from './commands';
+import faqs from './faqs'
 import reduceMap from './reduceMap';
 
 import generateDirectLineToken from './generateDirectLineToken';
@@ -384,7 +385,10 @@ server.post('/api/messages', (req, res) => {
           await context.sendActivity('Will echo `"typing"` event');
         }
       } else if (/^help$/i.test(cleanedText)) {
-        const attachments = commands.map(({ help, name }) => {
+        console.log(`help command received`);
+        // const helps = commands;
+        const helps = faqs;
+        const attachments = helps.map(({ help, name }) => {
           return {
             contentType: 'application/vnd.microsoft.card.thumbnail',
             content: {
